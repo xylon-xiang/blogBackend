@@ -10,6 +10,7 @@ import (
 type ProjectConfig struct {
 	Database DataBase `json:"database"`
 	Jwt      Jwt      `json:"jwt"`
+	Summary Summary `json:"summary"`
 }
 
 type DataBase struct {
@@ -31,6 +32,10 @@ type Jwt struct {
 	TokenLife     int64  `json:"token_life"`
 	ContentKey    string `json:"content_key"`
 	SigningSecret string `json:"signing_secret"`
+}
+
+type Summary struct {
+	Length int `json:"length"`
 }
 
 var Config ProjectConfig
