@@ -52,7 +52,7 @@ func GetArticle(isAll bool, tags string, articleId string) (*model.ArticleInfoRe
 
 		articleReturn.Articles = append(articleReturn.Articles, article.(model.Article))
 
-		comments, err := model.FindAll("comment", "commentReceiverId", articleId, "")
+		comments, err := model.FindAll("comment", "comment_receiver_id", articleId, "")
 		if err != nil {
 			return nil, err
 		}

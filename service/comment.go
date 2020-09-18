@@ -19,7 +19,7 @@ func PublishComment(articleId string, commentPost *model.CommentPost) (*model.Co
 	comment.CommentThumbupNum = 0
 
 
-	err := model.Save("comment", comment)
+	err := model.Save("comment", &comment)
 	if err != nil{
 		return nil, err
 	}

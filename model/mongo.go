@@ -168,15 +168,18 @@ func UpdateOne(colName string, content interface{}) (err error) {
 	switch colName {
 	case USER:
 		filter := bson.M{"user_id": content.(User).UserId}
-		_, err = UserCol.UpdateOne(context.TODO(), filter, *content.(*User), opts)
+		update := bson.M{"$set": content.(User)}
+		_, err = UserCol.UpdateOne(context.TODO(), filter, update, opts)
 
 	case ARTICLE:
 		filter := bson.M{"article_id": content.(Article).ArticleId}
-		_, err = ArticleCol.UpdateOne(context.TODO(), filter, *content.(*Article), opts)
+		update := bson.M{"$set": content.(Article)}
+		_, err = ArticleCol.UpdateOne(context.TODO(), filter, update, opts)
 
 	case COMMENT:
 		filter := bson.M{"comment_id": content.(Comment).CommentId}
-		_, err = CommentCol.UpdateOne(context.TODO(), filter, *content.(*Comment), opts)
+		update := bson.M{"$set": content.(Comment)}
+		_, err = CommentCol.UpdateOne(context.TODO(), filter, update, opts)
 
 	}
 
@@ -215,15 +218,15 @@ func DeleteById(colName string, id string) error {
 
 	switch colName {
 	case USER:
-		filter = bson.M{"userId": id}
+		filter = bson.M{"user_id": id}
 		col = UserCol
 
 	case ARTICLE:
-		filter = bson.M{"articleId": id}
+		filter = bson.M{"article_id": id}
 		col = ArticleCol
 
 	case COMMENT:
-		filter = bson.M{"commentId": id}
+		filter = bson.M{"comment_id": id}
 		col = CommentCol
 	}
 
