@@ -5,5 +5,14 @@ type Comment struct {
 	CommentReceiverId string `json:"comment_receiver_id"`
 	CommentSenderId   string `json:"comment_sender_id"`
 	CommentContent    string `json:"comment_content"`
-	CommentThumbupNum string `json:"comment_thumbup_num"`
+	CommentThumbupNum int `json:"comment_thumbup_num"`
+}
+
+type CommentPost struct {
+	CommentSenderId string `json:"comment_sender_id"`
+	CommentContent  string `json:"comment_content"`
+}
+
+type CommentPublishReturnModule struct {
+	CommentId string `json:"comment_id"`
 }

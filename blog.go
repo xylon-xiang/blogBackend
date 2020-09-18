@@ -33,20 +33,9 @@ func main() {
 	e.DELETE("/api/article/:articleId", deleteArticleController,
 		middleware.JWTWithConfig(util.JwtConfig))
 
+	e.POST("/api/article/:articleId", publishCommentController)
+
 	e.Logger.Fatal(e.Start(":1548"))
-
-}
-
-func getSpecificUserController(context echo.Context) error {
-
-	userId := context.Param("userId")
-
-	userInfo, err := service.GetSpecificUser(userId)
-	if err != nil {
-		return err
-	}
-
-	return context.JSON(http.StatusOK, *userInfo)
 
 }
 
@@ -72,6 +61,19 @@ func userLoginController(context echo.Context) error {
 	}
 
 	return context.JSON(http.StatusOK, *logReturnModule)
+}
+
+func getSpecificUserController(context echo.Context) error {
+
+	userId := context.Param("userId")
+
+	userInfo, err := service.GetSpecificUser(userId)
+	if err != nil {
+		return err
+	}
+
+	return context.JSON(http.StatusOK, *userInfo)
+
 }
 
 func getAllArticleController(context echo.Context) error {
@@ -144,4 +146,23 @@ func deleteArticleController(context echo.Context) error {
 	}
 
 	return context.String(http.StatusOK, "resource deleted successfully")
+}
+
+func publishCommentController(context echo.Context) error {
+
+	articleId := context.Param("articleId")
+
+	commentPost := new(model.CommentPost)
+
+	if err := context.Bind(commentPost); err != nil{
+		return err
+	}
+
+	commentPubReturn, err := service.PublishComment(articleId, commentPost)
+	if err != nil{
+		return err
+	}
+
+	return context.JSON(http.StatusOK, *commentPubReturn)
+
 }

@@ -48,6 +48,7 @@ func init() {
 
 // just support one tag search
 // if want to find by key except primer key, fill the keyName
+// the return interface is []User or []Article or []Comment
 func FindAll(colName string, keyName string, keyValue string, tag ...string) (result interface{}, err error) {
 
 	var filter bson.M
@@ -112,6 +113,7 @@ func FindAll(colName string, keyName string, keyValue string, tag ...string) (re
 	return result, err
 }
 
+// the result interface is  User or Article or Comment  module struct
 func FindById(colName string, id string) (result interface{}, err error) {
 
 	switch colName {
